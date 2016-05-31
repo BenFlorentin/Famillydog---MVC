@@ -1,8 +1,9 @@
 <?php
 /** 
  * Page d'accueil de l'application Famillydog
+ * côté client
 
- * Point d'entrée unique de l'application
+ * Point d'entrée de l'application
  * @author 
  * @package default
  */
