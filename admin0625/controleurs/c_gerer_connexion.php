@@ -24,51 +24,37 @@ switch ($action)
 	case 'connexion' : 
 	{
 		
-		 // initialisation des variables
-		$ajoutOK = true;
-		$email = '';
-		$mdp = '';
-
-		        // récupération des valeurs saisies
+		// récupération des valeurs saisies
 		$email = htmlentities($_POST["email"]);
 		$mdp = htmlentities($_POST["mdp"]);
 		unset($_SESSION['E_CONNEXION']);
 
 
-		if($ajoutOK)
-		{
 
 			//charger l'administrateur
-			$utilisateur = Utilisateurs::chargerUtilisateurParEmailEtParMdp($email,$mdp);
+		$admin = Utilisateurs::chargerAdminParEmailEtParMdp($email,$mdp);
+		var_dump($admin);
 
-			if($utilisateur)
+		if($admin)
+		{
+			if(isset($_POST['remember']))
 			{
-				if(isset($_POST['remember']))
-				{
-					setcookie('auth', $utilisateur->getID(). '-----' . sha1($utilisateur->getEmail(). $utilisateur->getMdp()), time() + 3600 * 24 * 3, '/', 'localhost', true, true);
-				}
-
-				$_SESSION['user_id'] = $utilisateur->getID();
-				$_SESSION['user_nom'] = $utilisateur->getNom();
-				$_SESSION['user_prenom'] = $utilisateur->getPrenom();
-				$_SESSION['user_droit'] = $utilisateur->getDroit();
-
-				unset($_SESSION['E_CONNEXION']);
-				$_SESSION['V_CONNEXION'] = true;
-
-				header('Location: index.php?uc=home');
+				setcookie('auth', $admin['id']. '-----' . sha1($email. $mdp), time() + 3600 * 24 * 3, '/', 'localhost', true, true);
 			}
-			else
-			{
 
-				$_SESSION['E_CONNEXION'] = true;
-				unset($_SESSION['V_CONNEXION']);
-				include'vues/_v_connexion.php';
-			}
+			$_SESSION['user_id'] = $admin['id'];
+			$_SESSION['user_nom'] = $admin['nom'];
+			$_SESSION['user_prenom'] = $admin['prenom'];
+			$_SESSION['user_droit'] = $admin['droit'];
+
+			unset($_SESSION['E_CONNEXION']);
+			$_SESSION['V_CONNEXION'] = true;
+
+			header('Location: index.php?uc=home');
 		}
 		else
 		{
-			//Afficher les erreurs et on refait la saisie 
+
 			$_SESSION['E_CONNEXION'] = true;
 			unset($_SESSION['V_CONNEXION']);
 			include'vues/_v_connexion.php';

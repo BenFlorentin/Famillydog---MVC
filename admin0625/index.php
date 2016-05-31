@@ -47,6 +47,9 @@ switch ($uc)
     case 'gererConnexion' : 
         include 'controleurs/c_gerer_connexion.php'; break;
 
+    case 'gererMessages' : 
+        include 'controleurs/c_gerer_messages.php'; break;
+
     case 'home' : 
         include 'vues/v_home.php'; break;
 

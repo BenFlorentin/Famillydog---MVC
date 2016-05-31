@@ -226,6 +226,65 @@ class Utilisateurs
         }
     }
 
+
+
+    /**
+     * Méthode qui crée un tableau contenant les informations de l'admin à partir de son email et de son mdp      
+     * @param $email : email de l'utilisateur
+     * @param $mdp : mdp de l'utilisateur
+     * @return un tableau
+    */
+    static public function chargerAdminParEmailEtParMdp($email, $mdp) 
+    {
+        // créer une nouvelle connexion pour accéder à la base de données
+        $cnx = new PdoDao();
+
+        // créer la requête
+        $strSQL = "SELECT ID as ID, 
+        nom AS Nom, 
+        prenom AS Prenom, 
+        email AS Email, 
+        mdp AS Mdp, 
+        droit AS Droit
+        FROM proprietaire 
+        WHERE email = ? 
+        AND mdp = ?
+        AND droit = 1";
+        
+        // test d'execution
+        try 
+        {
+            // execution de la requête
+            $res = $cnx->getRows($strSQL, array($email, $mdp), 1);
+        } 
+        catch (Exception $ex) 
+        {
+            die ($ex->getMessage());
+        }
+
+        // test de l'existance de l'utilisateur 
+        if ($res != -1) 
+        {
+            // l'utilisateur existe
+            $id = $res[0]->ID;
+            $nom = $res[0]->Nom;
+            $prenom = $res[0]->Prenom;
+            $droit = $res[0]->Droit;
+
+            return $admin = array(
+                'id' => $id,
+                'nom' => $nom,
+                'prenom' => $prenom,
+                'droit' => $droit);  
+
+
+        }
+        else 
+        {
+            return NULL;
+        }
+    }
+
     /**
      * Méthode qui ajoute un utilisateur dans la base      
      * @param   $params : tableau contenant les valeurs

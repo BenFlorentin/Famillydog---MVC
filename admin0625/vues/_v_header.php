@@ -34,15 +34,7 @@
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" >			
 				<ul class="nav navbar-nav navbar-right">
-					<?php 
-					if(isset($_SESSION['user_id']))
-					{
-						?>
-						<!-- deconnexion.php -->
-						<li><a href="index.php?uc=gererConnexion&action=deconnexion" style="top: 10px;"><i class="fa fa-power-off"></i> Se déconnecter</a></li>
-					<?php 
-					}
-					?>
+					<li><a href="index.php?uc=gererConnexion&action=deconnexion" style="top: 10px;"><i class="fa fa-power-off"></i> Se déconnecter</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-left">
 				<?php 
@@ -63,7 +55,7 @@
 					if($nbMessagesEnCours == 0)
 					{
 						echo'<li style="margin-right: 10px;">
-						<form method="post" action="admin_messages.php" style="margin-top: 18px;">
+						<form method="post" action="index.php?uc=gererMessages" style="margin-top: 18px;">
 						<button type="submit" class="btn btn-success"><i class="fa fa-envelope"></i> Message <span class="badge">0</span></button>
 						</form>
 						</li>';	
@@ -71,7 +63,7 @@
 					if($nbMessagesEnCours == 1)
 					{
 						echo'<li style="margin-right: 10px;">
-						<form method="post" action="admin_messages.php" style="margin-top: 18px;">
+						<form method="post" action="index.php?uc=gererMessages" style="margin-top: 18px;">
 						<button type="submit" class="btn btn-danger"><i class="fa fa-envelope"></i> Message <span class="badge">1</span></button>
 						</form>
 						</li>';	 	
@@ -79,7 +71,7 @@
 					if($nbMessagesEnCours > 1)
 					{
 						echo'<li style="margin-right: 10px;">
-						<form method="post" action="admin_messages.php" style="margin-top: 18px;">
+						<form method="post" action="index.php?uc=gererMessages" style="margin-top: 18px;">
 						<button type="submit" class="btn btn-danger"><i class="fa fa-envelope"></i> Messages <span class="badge">'.$nbMessagesEnCours.'</span></button>
 						</form>
 						</li>';	 	

@@ -21,8 +21,7 @@ class PdoDao extends PDO
      */
     public function __construct()
      {
-        parent::__construct(
-                DSN, DB_USER, DB_PWD, array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''));
+        parent::__construct(DSN, DB_USER, DB_PWD, array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''));
         try
         {
             parent::setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

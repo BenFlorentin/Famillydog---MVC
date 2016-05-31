@@ -24,8 +24,8 @@ class Messages
         email as Email,
         sujet as Sujet,
         message as Message, 
-        tel as tel,
-        etat as etat,
+        tel as Tel,
+        etat as Etat,
         date_msg as DateMsg
         FROM messagerie
         ORDER BY date_msg DESC";
@@ -60,8 +60,8 @@ class Messages
         email as Email,
         sujet as Sujet,
         message as Message, 
-        tel as tel,
-        etat as etat,
+        tel as Tel,
+        etat as Etat,
         date_msg as DateMsg
         FROM messagerie
         WHERE ID = ?";
@@ -78,26 +78,51 @@ class Messages
         // test de l'existance du message 
         if ($res != -1) 
         {
-            // le message existe
-            $nom = $res[0]->Nom;
-            $prenom = $res[0]->Prenom;
-            $email = $res[0]->Email;
-            $sujet = $res[0]->Sujet;
-            $message = $res[0]->Message;
-            $tel = $res[0]->Tel;
-            $etat = $res[0]->Etat;
-            $date_msg = $res[0]->date_msg;
-            return new Message
-            (
-                $id,
-                $nom,
-                $prenom,
-                $email,
-                $sujet,
-                $message,
-                $tel,
-                $etat,
-                $date_msg);
+            return $res;
+        }
+        else 
+        {
+            return NULL;
+        }
+    }
+
+    /**
+     * Méthode qui crée un objet de la classe Message à partir de son etat      
+     * @param $etat : etat du message
+     * @return un objet de la classe Message
+    */
+    static public function chargerMessagesParEtat($etat) 
+    {
+        // créer une nouvelle connexion pour accéder à la base de données
+        $cnx = new PdoDao();
+
+        // créer la requête
+        $strSQL = "SELECT ID as ID, 
+        nom as Nom,
+        prenom as Prenom,
+        email as Email,
+        sujet as Sujet,
+        message as Message, 
+        tel as Tel,
+        etat as Etat,
+        date_msg as DateMsg
+        FROM messagerie
+        WHERE etat = ?
+        ORDER BY date_msg DESC";
+        // test d'execution
+        try 
+        {
+            // execution de la requête
+            $res = $cnx->getRows($strSQL, array($etat), 1);
+        } 
+        catch (Exception $ex) 
+        {
+            die ($ex->getMessage());
+        }
+        // test de l'existance du message 
+        if ($res != -1) 
+        {
+            return $res;
         }
         else 
         {
@@ -152,6 +177,70 @@ class Messages
             die ($ex->getMessage());
         }
         return $message;
+    }
+
+
+    
+    /**
+     * supprime un message de la base
+     * @param   $id : id du message
+     * @return  un entier qui contient 1 si la mise à jour a été effectuées
+    */
+    static public function supprimerMessageParID($id) 
+    {
+        // accés à la base de données
+        $cnx = new PdoDao();        
+
+        // requête
+        $strSQL = "DELETE FROM messagerie WHERE ID = ?";
+
+        // test d'execution de la requete
+        try 
+        {
+            // execution de la requête
+            $cnx->execSQL($strSQL,array($id));
+
+            // suppression de l'objet en mémoire
+            $msg = NULL;
+        }
+        catch (PDOException $e) 
+        {
+            die($e->getMessage());
+        }
+        return $msg;
+    }
+
+
+    /**
+     * modifie un message de la base
+     * @param   $id : id du message
+     * @param   $etat : etat du message
+     * @return  un entier qui contient 1 si la mise à jour a été effectuées
+    */
+    static public function modifierMessage($id, $etat) 
+    {
+        // accés à la base de données
+        $cnx = new PdoDao();        
+
+        // requête
+        $strSQL = "UPDATE messagerie
+                    SET etat = ?
+                    WHERE ID = ?";
+
+        // test d'execution de la requete
+        try 
+        {
+            // execution de la requête
+            $cnx->execSQL($strSQL,array($etat, $id));
+
+            // modification de l'objet en mémoire
+            $msg = NULL;
+        }
+        catch (PDOException $e) 
+        {
+            die($e->getMessage());
+        }
+        return $msg;
     }  
 
     /**
