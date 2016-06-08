@@ -18,7 +18,7 @@ $newDate = DateTime::createFromFormat('j/m/Y', $_POST['date_naissance']);
 
 $_SESSION['ID_USER_TEMP'] = $_POST['ID'];
 
-var_dump($newDate);
+include'include/session.php';($newDate);
 
 
 if(checkdate($moisTeste, $jourTeste, $anneeTeste))

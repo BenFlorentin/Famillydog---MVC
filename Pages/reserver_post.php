@@ -31,17 +31,17 @@ if(isset($_POST['new_animal']))
 	$yearToday = $dateToday[2];
 	$newDate = DateTime::createFromFormat('j/m/Y', $_POST['date_naissance']);
 
-/*	var_dump($_POST);
-	var_dump($_SESSION);
+/*	include'include/session.php';($_POST);
+	include'include/session.php';($_SESSION);
 
-	var_dump($jourTeste);
-	var_dump($moisTeste);
-	var_dump($anneeTeste);
+	include'include/session.php';($jourTeste);
+	include'include/session.php';($moisTeste);
+	include'include/session.php';($anneeTeste);
 
-	var_dump($jourTeste);
-	var_dump($moisTeste);
-	var_dump($anneeTeste);
-	var_dump($_POST);
+	include'include/session.php';($jourTeste);
+	include'include/session.php';($moisTeste);
+	include'include/session.php';($anneeTeste);
+	include'include/session.php';($_POST);
 */
 
 	if(checkdate($moisTeste, $jourTeste, $anneeTeste))

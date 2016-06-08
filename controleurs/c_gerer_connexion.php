@@ -10,7 +10,7 @@ else
 	$action = "connexion";
 }
 
-var_dump($action);
+include'include/session.php';($action);
 
 // diriger vers les bonnes vues
 switch ($action) 

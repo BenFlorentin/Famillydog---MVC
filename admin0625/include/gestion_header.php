@@ -4,7 +4,6 @@
 require_once '../include/_bll.lib.php';
 require_once '../include/_reference.lib.php';
 
-var_dump($_SESSION);
 
 // nombre de message en cours
 $nbMessagesEnCours = Messages::nbMessages('E');

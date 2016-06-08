@@ -19,19 +19,12 @@ class Tarifs
 
         // requête
         $strSQL = "SELECT ID as ID,
-        date_debut_bla as DateDebutBla,
-        date_fin_bla as DateFinBla,
-        date_debut_ble as DateDebutBle,
-        date_fin_ble as DateFinBle,
-        date_debut_rou as DateDebutRou, 
-        date_fin_rou as DateFinRou,
-        prix_jour_bla as PrixJourBla,
-        prix_jour_ble as PrixJourBle,
-        prix_jour_rou as PrixJourRou,
-        saison_debut as SaisonDebut,
-        saison_fin as SaisonFin
+        tarif_jour_chien as TarifJourChien,
+        tarif_jour_chat as TarifJourChat,
+        debut_periode as DebutPeriode,
+        fin_periode as FinPeriode
         FROM tarifs
-        ORDER BY saison_debut DESC";
+        ORDER BY debut_periode DESC";
 
         // test d'execution 
         try 
@@ -57,19 +50,12 @@ class Tarifs
         $cnx = new PdoDao();
 
         // créer la requête
-        $strSQL = "SELECT ID as ID, 
-        date_debut_bla as DateDebutBla,
-        date_fin_bla as DateFinBla,
-        date_debut_ble as DateDebutBle,
-        date_fin_ble as DateFinBle,
-        date_debut_rou as DateDebutRou, 
-        date_fin_rou as DateFinRou,
-        prix_jour_bla as PrixJourBla,
-        prix_jour_ble as PrixJourBle,
-        prix_jour_rou as PrixJourRou,
-        saison_debut as SaisonDebut,
-        saison_fin as SaisonFin
-        FROM tarifs 
+        $strSQL = "SELECT ID as ID,
+        tarif_jour_chien as TarifJourChien,
+        tarif_jour_chat as TarifJourChat,
+        debut_periode as DebutPeriode,
+        fin_periode as FinPeriode
+        FROM tarifs
         WHERE ID = ?";
         // test d'execution
         try 
@@ -85,31 +71,17 @@ class Tarifs
         if ($res != -1) 
         {
             // l'utilisateur existe
-            $date_debut_bla = $res[0]->DateDebutBla;
-            $date_fin_bla = $res[0]->DateFinBla;
-            $date_debut_ble = $res[0]->DateDebutBle;
-            $date_fin_ble = $res[0]->DateFinBle;
-            $date_debut_rou = $res[0]->DateDebutRou;
-            $date_fin_rou = $res[0]->DateFinRou;
-            $prix_jour_bla = $res[0]->PrixJourBla;
-            $prix_jour_ble = $res[0]->PrixJourBle;
-            $prix_jour_rou = $res[0]->PrixJourRou;
-            $saison_debut = $res[0]->SaisonDebut;
-            $saison_fin = $res[0]->SaisonFin;
+            $tarif_jour_chien = $res[0]->TarifJourChien;
+            $tarif_jour_chat = $res[0]->TarifJourChat;
+            $debut_periode = $res[0]->DebutPeriode;
+            $fin_periode = $res[0]->FinPeriode;
             return new Tarif
             (
                 $id,
-                $date_debut_bla,
-                $date_fin_bla,
-                $date_debut_ble,
-                $date_fin_ble,
-                $date_debut_rou,
-                $date_fin_rou,
-                $prix_jour_bla,
-                $prix_jour_ble,
-                $prix_jour_rou,
-                $saison_debut,
-                $saison_fin);
+                $tarif_jour_chien,
+                $tarif_jour_chat,
+                $debut_periode,
+                $fin_periode);
         }
         else 
         {
@@ -130,18 +102,11 @@ class Tarifs
         $cnx = new PdoDao();
 
         // requête
-        $strSQL = "INSERT INTO tarifs(date_debut_bla,
-            date_fin_bla,
-            date_debut_ble,
-            date_fin_ble,
-            date_debut_rou,
-            date_fin_rou,
-            prix_jour_bla,
-            prix_jour_ble,
-            prix_jour_rou,
-            saison_debut,
-            saison_fin)
-            VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+        $strSQL = "INSERT INTO tarifs(tarif_jour_chien,
+                tarif_jour_chat,
+                debut_periode,
+                fin_periode)
+            VALUES (?,?,?,?)";
         // test d'execution                    
         try 
         {
@@ -180,34 +145,20 @@ class Tarifs
 
         // requête
         $strSQL = "UPDATE tarifs 
-        SET date_debut_bla = ?,
-            date_fin_bla = ?,
-            date_debut_ble = ?,
-            date_fin_ble = ?,
-            date_debut_rou = ?,
-            date_fin_rou = ?,
-            prix_jour_bla = ?,
-            prix_jour_ble = ?,
-            prix_jour_rou = ?,
-            saison_debut = ?,
-            saison_fin = ?
+        SET tarif_jour_chien = ?,
+            tarif_jour_chat = ?,
+            debut_periode = ?,
+            fin_periode = ?
         WHERE ID = ?";
 
         // test d'execution
         try 
         {
             // recupére les valeurs
-            $values = array($tarif->getDateDebutBla(),
-                $tarif->getDateFinBla(),
-                $tarif->getDateDebutBle(),
-                $tarif->getDateFinBle(),
-                $tarif->getDateDebutRou(),
-                $tarif->getDateFinRou(),
-                $tarif->getPrixJourBla(),
-                $tarif->getPrixJourBle(),
-                $tarif->getPrixJourRou(),
-                $tarif->getSaisonDebut(),
-                $tarif->getSaisonFin(),
+            $values = array($tarif->getTarifJourChien(),
+                $tarif->getTarifJourChat(),
+                $tarif->getDebutPeriode(),
+                $tarif->getFinPeriode(),
                 $tarif->getID());
             // execution de la requête
             $res = $cnx->execSQL($strSQL, $values);
@@ -221,31 +172,58 @@ class Tarifs
     
     /**
      * supprime un tarif de la base
-     * @param   $tarif : un objet tarif
+     * @param   $id : id du tarif
      * @return  un entier qui contient 1 si la suppression a été effectuée
     */
-    static public function supprimerTarif($tarif) 
+    static public function supprimerTarif($id) 
     {
         // créer une nouvelle connexion pour accéder à la base de données
         $cnx = new PdoDao();
 
            $strSQL = "DELETE FROM tarifs WHERE ID = ?";
-            // on récupére l'id du tarif
-            $values = array($tarif->getID());
+
             // test de la suppression
             try 
             {
                 // execution de la requête
-                $cnx->execSQL($strSQL,$values);
-
-                // suppression de l'objet en mémoire
-                $tarif = NULL;
+                $res = $cnx->execSQL($strSQL,array($id));
             }
             catch (PDOException $e) 
             {
                 die($e->getMessage());
             }
-            return $tarif;
+            return $res;
+    } 
+
+
+    /**
+     * vérifie l'existance d'une tarif pour une période donnée
+     * @param   $debut_periode : debut de la période teste
+     * @param   $fin_periode : fin de la période teste
+     * @param   $debut : debut de la période dans la base de données
+     * @param   $fin : fin de la période dans la base de données
+     * @return  un entier qui contient 1 si la suppression a été effectuée
+    */
+    static public function verifierTarifs($debut_periode,$fin_periode,$debut,$fin) 
+    {
+        // créer une nouvelle connexion pour accéder à la base de données
+        $cnx = new PdoDao();
+
+        // requête
+        $strSQL = "SELECT f_dateVerifTarifs(?,?,?,?)";
+
+        // test de l'execution de la requête
+        try 
+        {
+            // execution de la requête
+            $res = $cnx->execSQL($strSQL,array($debut_periode, $fin_periode, $debut, $fin));
+
+        }
+        catch (PDOException $e) 
+        {
+            die($e->getMessage());
+        }
+        return $res;
     } 
 }
 ?>

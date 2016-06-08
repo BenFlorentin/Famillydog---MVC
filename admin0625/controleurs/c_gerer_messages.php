@@ -30,6 +30,22 @@ switch ($action)
 		include'vues/v_messages.php';
 	};break;
 
+	// liste des messages en cours
+	case 'listeMessagesEnCours' :
+	{
+		$msgEnCours = Messages::chargerMessagesParEtat('E');
+
+		include'vues/v_messages_en_cours.php';
+	};break;
+
+	// liste des messages reglés
+	case 'listeMessagesRegles' :
+	{
+		$msgRegles = Messages::chargerMessagesParEtat('R');
+
+		include'vues/v_messages_regles.php';
+	};break;
+
 	// regarder un message
 	case 'regarder' : 
 	{

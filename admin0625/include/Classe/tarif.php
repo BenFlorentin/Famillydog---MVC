@@ -6,17 +6,10 @@ class Tarif
      * attributs privés
     */				    
     private $_id;
-    private $_date_debut_bla;
-    private $_date_fin_bla;
-    private $_date_debut_ble;
-    private $_date_fin_ble;
-    private $_date_debut_rou;
-    private $_date_fin_rou;
-    private $_prix_jour_bla;
-    private $_prix_jour_ble;
-    private $_prix_jour_rou;
-    private $_saison_debut;
-    private $_saison_fin;
+    private $_tarif_jour_chien;
+    private $_tarif_jour_chat;
+    private $_debut_periode;
+    private $_fin_periode;
     
     /**
      * Constructeur 
@@ -24,31 +17,17 @@ class Tarif
     public function __construct
     (
         $p_id,
-        $p_date_debut_bla,
-        $p_date_fin_bla,
-        $p_date_debut_ble,
-        $p_date_fin_ble,
-        $p_date_debut_rou,
-        $p_date_fin_rou,
-        $p_prix_jour_bla,
-        $p_prix_jour_ble,
-        $p_prix_jour_rou,
-        $p_saison_debut,
-        $p_saison_fin
+        $p_tarif_jour_chien,
+        $p_tarif_jour_chat,
+        $p_debut_periode,
+        $p_fin_periode
     ) 
     {
         $this->setID($p_id);
-        $this->setDateDebutBla($p_date_debut_bla);
-        $this->setDateFinBla($p_date_fin_bla);
-        $this->setDateDebutBle($p_date_debut_ble);
-        $this->setDateFinBle($p_date_fin_ble);
-        $this->setDateDebutRou($p_date_debut_rou);
-        $this->setDateFinRou($p_date_fin_rou);
-        $this->setPrixJourBla($p_prix_jour_bla);
-        $this->setPrixJourBle($p_prix_jour_ble);
-        $this->setPrixJourRou($p_prix_jour_rou);
-        $this->setSaisonDebut($p_saison_debut);
-        $this->setSaisonFin($p_saison_fin);
+        $this->setTarifJourChien($p_tarif_jour_chien);
+        $this->setTarifJourChat($p_tarif_jour_chat);
+        $this->setDebutPeriode($p_debut_periode);
+        $this->setFinPeriode($p_fin_periode);
     }
 
     /**
@@ -59,50 +38,22 @@ class Tarif
     {
         return $this->_id;
     } 
-    public function getDateDebutBla() 
+    public function getTarifJourChien() 
     {
-        return $this->_date_debut_bla;
+        return $this->_tarif_jour_chien;
     }
-    public function getDateFinBla() 
+    public function getTarifJourChat() 
     {
-        return $this->_date_fin_bla;
+        return $this->_tarif_jour_chat;
     }
-    public function getDateDebutBle() 
+    public function getDebutPeriode() 
     {
-        return $this->_date_debut_ble;
+        return $this->_debut_periode;
     }
-    public function getDateFinBle() 
+    public function getFinPeriode() 
     {
-        return $this->_date_fin_ble;
+        return $this->_fin_periode;
     } 
-    public function getDateDebutRou() 
-    {
-        return $this->_date_debut_rou;
-    }
-    public function getDateFinRou() 
-    {
-        return $this->_date_fin_rou;
-    }
-    public function getPrixJourBla() 
-    {
-        return $this->_prix_jour_bla;
-    }
-    public function getPrixJourBle() 
-    {
-        return $this->_prix_jour_ble;
-    }
-    public function getPrixJourRou() 
-    {
-        return $this->_prix_jour_rou;
-    }
-    public function getSaisonDebut() 
-    {
-        return $this->_saison_debut;
-    }
-    public function getSaisonFin() 
-    {
-        return $this->_saison_fin;
-    }
     
 
     /**
@@ -113,49 +64,21 @@ class Tarif
     {
         $this->_id = $p_id;
     } 
-    public function setDateDebutBla($p_date_debut_bla) 
+    public function setTarifJourChien($p_tarif_jour_chien) 
     {
-        $this->_date_debut_bla = $p_date_debut_bla;
+        $this->_tarif_jour_chien = $p_tarif_jour_chien;
     }
-    public function setDateFinBla($p_date_fin_bla) 
+    public function setTarifJourChat($p_tarif_jour_chat) 
     {
-        $this->_date_fin_bla = $p_date_fin_bla;
+        $this->_tarif_jour_chat = $p_tarif_jour_chat;
     }
-    public function setDateDebutBle($p_date_debut_ble) 
+    public function setDebutPeriode($p_debut_periode) 
     {
-        $this->_date_debut_ble = $p_date_debut_ble;
+        $this->_debut_periode = $p_debut_periode;
     }
-    public function setDateFinBle($p_date_fin_ble) 
+    public function setFinPeriode($p_fin_periode) 
     {
-        $this->_date_fin_ble = $p_date_fin_ble;
+        $this->_fin_periode = $p_fin_periode;
     }
-    public function setDateDebutRou($p_date_debut_rou) 
-    {
-        $this->_date_debut_rou = $p_date_debut_rou;
-    }
-    public function setDateFinRou($p_date_fin_rou) 
-    {
-        $this->_date_fin_rou = $p_date_fin_rou;
-    }
-    public function setPrixJourBla($p_prix_jour_bla) 
-    {
-        $this->_prix_jour_bla = $p_prix_jour_bla;
-    }
-    public function setPrixJourBle($p_prix_jour_ble) 
-    {
-        $this->_prix_jour_ble = $p_prix_jour_ble;
-    }
-    public function setPrixJourRou($p_prix_jour_rou) 
-    {
-        $this->_prix_jour_rou = $p_prix_jour_rou;
-    }
-    public function setSaisonDebut($p_saison_debut) 
-    {
-        $this->_saison_debut = $p_saison_debut;
-    }
-    public function setSaisonFin($p_saison_fin) 
-    {
-        $this->_saison_fin = $p_saison_fin;
-    }    
 }
 ?>

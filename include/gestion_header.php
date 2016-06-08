@@ -4,7 +4,7 @@
 require_once 'include/_bll.lib.php';
 require_once 'include/_reference.lib.php';
 
-var_dump($_SESSION);
+include'include/session.php';($_SESSION);
 
 // nombre de réservations payées de l'utilisateur
 $nbReservationsUtilisateurPayees = Reservations::nbReservationsParEtatEtParId('P',$_SESSION['user_id']);

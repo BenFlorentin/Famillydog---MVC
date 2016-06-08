@@ -1,5 +1,6 @@
 <?php
 require_once 'include/_bll.lib.php';
+require_once '../functions.sql';
 
 if (isset($_GET["action"])) 
 {
@@ -33,7 +34,6 @@ switch ($action)
 
 			//charger l'administrateur
 		$admin = Utilisateurs::chargerAdminParEmailEtParMdp($email,$mdp);
-		var_dump($admin);
 
 		if($admin)
 		{

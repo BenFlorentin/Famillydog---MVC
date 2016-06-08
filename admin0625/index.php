@@ -50,6 +50,9 @@ switch ($uc)
     case 'gererMessages' : 
         include 'controleurs/c_gerer_messages.php'; break;
 
+    case 'gererTarifs' : 
+        include 'controleurs/c_gerer_tarifs.php'; break;
+
     case 'home' : 
         include 'vues/v_home.php'; break;
 

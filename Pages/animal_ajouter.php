@@ -2,7 +2,7 @@
 	include'include/session.php';
 	include'include/connexion_bdd.php';
 
-	var_dump($_SESSION);
+	include'include/session.php';($_SESSION);
 
 if(!isset($_SESSION['user_id'])) 
 {

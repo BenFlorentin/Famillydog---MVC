@@ -14,14 +14,14 @@ $dayToday = $dateToday[0];
 $monthToday = $dateToday[1];
 $yearToday = $dateToday[2];
 
-var_dump($anneeTeste);
-var_dump($yearToday);
-var_dump($_POST);
-var_dump($_SESSION);
+include'include/session.php';($anneeTeste);
+include'include/session.php';($yearToday);
+include'include/session.php';($_POST);
+include'include/session.php';($_SESSION);
 $newDate = DateTime::createFromFormat('j/m/Y', $_POST['date_naissance']);
 
 
-var_dump($newDate);
+include'include/session.php';($newDate);
 
 
 if(checkdate($moisTeste, $jourTeste, $anneeTeste))

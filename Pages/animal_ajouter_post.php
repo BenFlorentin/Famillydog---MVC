@@ -32,7 +32,7 @@ if(checkdate($moisTeste, $jourTeste, $anneeTeste))
 			{
 				
 
-				var_dump($_SESSION);
+				include'include/session.php';($_SESSION);
 
 
 				$u = $bdd->prepare("INSERT INTO `animal`(`ID_proprietaire`, `type`, `nom`, `date_naissance`, `genre`, `complem_info`, `vaccine`, `puce`, `race`) 

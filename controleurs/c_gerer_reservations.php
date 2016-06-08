@@ -33,8 +33,8 @@ else
 }
 
 
-var_dump($id);
-var_dump($action);
+include'include/session.php';($id);
+include'include/session.php';($action);
 die;
 // diriger vers les bonnes vues
 switch ($action) 

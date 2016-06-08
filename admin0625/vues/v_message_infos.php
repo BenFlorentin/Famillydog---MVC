@@ -1,7 +1,3 @@
-<!-- $u = $bdd->prepare('SELECT * FROM messagerie WHERE ID = ?');
-$u->execute(array($_POST['ID']));
-$message = $u->fetch(); -->
-
 <body>
 	<div class="container">
 		 <h1 class="text-center"><i class="fa fa-envelope"></i> Message </h1>

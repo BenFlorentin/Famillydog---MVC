@@ -28,7 +28,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="index.php"><img src="../img/logo_famillydog.png" style="height: 300%;margin-top: -10px;"></a>
+				<a class="navbar-brand" href="index.php?uc=home"><img src="../img/logo_famillydog.png" style="height: 300%;margin-top: -10px;"></a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
@@ -37,21 +37,13 @@
 					<li><a href="index.php?uc=gererConnexion&action=deconnexion" style="top: 10px;"><i class="fa fa-power-off"></i> Se déconnecter</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-left">
-				<?php 
 
-				// côté administrateur
-				if(isset($_SESSION['user_id']) && $_SESSION['user_droit'] == 1)
+				<?php 
+				if(isset($_SESSION['user_id']))
 				{
 					// gestion des messages
 
-
 					// nb message en cours
-
-					/*$me = $bdd->prepare('SELECT COUNT(*) AS nb_messages FROM messagerie WHERE etat = ?');
-					$me ->execute(array('E'));
-					$message = $me->fetch();*/
-
-
 					if($nbMessagesEnCours == 0)
 					{
 						echo'<li style="margin-right: 10px;">
@@ -76,8 +68,6 @@
 						</form>
 						</li>';	 	
 					}
-
-					/*$me->closeCursor();*/
 					?>
 					<li class="dropdown">
 						<!-- administrateur -->
@@ -86,7 +76,7 @@
 								<i class="fa fa-cogs"></i> Ad.Infos <span class="caret"></span>
 							</button>
 							<ul class="dropdown-menu">
-								<li><a href="admin_tarifs.php"><i class="fa fa-eur"></i> Gestion des tarifs</a></li>
+								<li><a href="index.php?uc=gererTarifs&action=listeTarifs"><i class="fa fa-eur"></i> Gestion des tarifs</a></li>
 								<li><a href="admin_comptes.php"><i class="fa fa-user"></i> Gestion des comptes et animaux <i class="fa fa-paw"></i></a></li>
 								<li class="dropdown">
 									<!-- gestion des réservations -->
@@ -95,9 +85,6 @@
 										<li>
 											<?php 
 											// réservations non payées
-											/*$me = $bdd->prepare('SELECT COUNT(*) AS nb_non_payees FROM reservation WHERE etat = ?');
-											$me->execute(array('NP'));
-											$message = $me->fetch();*/
 
 											if($nbReservationsNonPayees == 0)
 											{
@@ -111,17 +98,11 @@
 											{
 												echo'<li><a href="admin_reservations_non_payees.php">Non payées <span class="badge" style="background-color:red">'.$nbReservationsNonPayees.'</span></a></li>';	 	
 											}
-
-											/*$me->closeCursor();*/
 											?>
 										</li>
 										<li>
 											<?php 
-
 											// réservations payées
-											/*$me = $bdd->prepare('SELECT COUNT(*) AS nb_payees FROM reservation WHERE etat = ?');
-											$me->execute(array('P'));
-											$message = $me->fetch();*/
 
 											if($nbReservationsPayees == 0)
 											{
@@ -135,17 +116,11 @@
 											{
 												echo'<li><a href="admin_reservations_payees.php">Payées <span class="badge" style="background-color: red">'.$nbReservationsPayees.'</span></a></li>';	 	
 											}
-
-											/*$me->closeCursor();*/
 											?>
 										</li>
 										<li>
 											<?php 
-
 											// réservation en cours
-											/*$me = $bdd->prepare('SELECT COUNT(*) AS nb_en_cours FROM reservation WHERE etat = ?');
-											$me->execute(array('E'));
-											$message = $me->fetch();*/
 
 											if($nbReservationsEnCours == 0)
 											{
@@ -159,17 +134,11 @@
 											{
 												echo'<li><a href="admin_reservations_en_cours.php">En cours <span class="badge" style="background-color: red">'.$nbReservationsEnCours.'</span></a></li>';	 	
 											}
-
-											/*$me->closeCursor();*/
 											?>
 										</li>
 										<li>
 											<?php 
-
 											// réservations terminées
-											/*$me = $bdd->prepare('SELECT COUNT(*) AS nb_terminees FROM reservation WHERE etat = ?');
-											$me->execute(array('T'));
-											$message = $me->fetch();*/
 
 											if($nbReservationsTerminees == 0)
 											{
@@ -183,13 +152,11 @@
 											{
 												echo'<li><a href="admin_reservations_terminees.php">Terminées <span class="badge" style="background-color: red">'.$nbReservationsTerminees.'</span></a></li>';	 	
 											}
-
-											/*$me->closeCursor();*/
 											?>
 										</li>
 
 										<li role="separator" class="divider"></li>
-										<li><a href="admin_reservations.php"><i class="fa fa-calendar"></i> Gestion des réservations</a></li>
+										<li><a href="index.php?uc=gererMessages"><i class="fa fa-calendar"></i> Gestion des réservations</a></li>
 									</ul>
 								</li>
 								<li class="dropdown">
@@ -198,11 +165,7 @@
 									<ul class="dropdown-menu">
 										<li>
 											<?php 
-
 											// messages réglés
-											/*$me = $bdd->prepare('SELECT COUNT(*) AS nb_regle FROM messagerie WHERE etat = ?');
-											$me->execute(array('R'));
-											$message = $me->fetch();*/
 
 											if($nbMessagesRegles == 0)
 											{
@@ -210,22 +173,17 @@
 											}
 											if($nbMessagesRegles == 1)
 											{
-												echo'<li><a href="admin_messages_regles.php">Réglé <span class="badge" style="background-color: red">1</span></a></li>';	 	
+												echo'<li><a href="index.php?uc=gererMessages&action=listeMessagesRegles">Réglé <span class="badge" style="background-color: red">1</span></a></li>';	 	
 											}
 											if($nbMessagesRegles > 1)
 											{
-												echo'<li><a href="admin_messages_regles.php">Réglés <span class="badge" style="background-color: red">'.$nbMessagesRegles.'</span></a></li>';	 	
+												echo'<li><a href="index.php?uc=gererMessages&action=listeMessagesRegles">Réglés <span class="badge" style="background-color: red">'.$nbMessagesRegles.'</span></a></li>';	 	
 											}
-
-											/*$me->closeCursor();*/
 											?>
 										</li>
 										<li>
 											<?php 
 											// messages en cours
-											/*$me = $bdd->prepare('SELECT COUNT(*) AS nb_en_cours FROM messagerie WHERE etat = ?');
-											$me->execute(array('E'));
-											$message = $me->fetch();*/
 
 											if($nbMessagesEnCours == 0)
 											{
@@ -233,18 +191,16 @@
 											}
 											if($nbMessagesEnCours == 1)
 											{
-												echo'<li><a href="admin_messages_en_cours.php">En cours <span class="badge" style="background-color: red">1</span></a></li>';	 	
+												echo'<li><a href="index.php?uc=gererMessages&action=listeMessagesEnCours">En cours <span class="badge" style="background-color: red">1</span></a></li>';	 	
 											}
 											if($nbMessagesEnCours > 1)
 											{
-												echo'<li><a href="admin_messages_en_cours.php">En cours <span class="badge" style="background-color: red">'.$nbMessagesEnCours.'</span></a></li>';	 	
+												echo'<li><a href="index.php?uc=gererMessages&action=listeMessagesEnCours">En cours <span class="badge" style="background-color: red">'.$nbMessagesEnCours.'</span></a></li>';	 	
 											}
-
-											/*$me->closeCursor();*/
 											?>
 										</li>
 										<li role="separator" class="divider"></li>
-										<li><a href="admin_messages.php"><i class="fa fa-envelope"></i> Messagerie</a></li>
+										<li><a href="index.php?uc=gererMessages"><i class="fa fa-envelope"></i> Messagerie</a></li>
 									</ul>
 								</li>
 								<li role="separator" class="divider"></li>
@@ -269,9 +225,9 @@
 <div class="container-fluid main-container">
 	<div class="col-xs-12 col-md-2 sidebar">
 		<ul class="nav nav-pills nav-stacked">
-			<li><a href="index.php" style="top: 10px;"><i class="fa fa-home"></i> Accueil</a></li>
+			<li><a href="index.php?uc=home" style="top: 10px;"><i class="fa fa-home"></i> Accueil</a></li>
 			<li><a href="reserver.php" style="top: 10px;"><i class="fa fa-calendar"></i> Réserver</a></li>
-			<li><a href="tarifs.php" style="top: 10px;"><i class="fa fa-eur"></i>  Tarifs</a></li>
+			<li><a href="index.php?uc=gererTarifs&action=listeTarifs" style="top: 10px;"><i class="fa fa-eur"></i>  Tarifs</a></li>
 			<li><a href="contact.php" style="top: 10px;"><i class="fa fa-envelope"></i> Contact</a></li>
 			<li>&nbsp;</li>
 		</ul>
