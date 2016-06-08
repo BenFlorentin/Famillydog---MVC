@@ -1,34 +1,51 @@
+<?php 
+
+/*$u = $bdd->prepare('SELECT * FROM tarifs WHERE ID = ?');
+$u->execute(array($_POST['ID_tarifs']));
+$tarifs = $u->fetch();*/
+?>
+
 <!-- DATEPICKER : sur chaque fichier où il y a un datepicker -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
+
 <div class="container">
 	<fieldset>
-		 <h1 class="text-center">Période : <?php echo date('d/m/Y', strtotime($leTarif->getDebutPeriode())).' - '.date('d/m/Y', strtotime($leTarif->getFinPeriode())) ?></h1>
-		<a href="index.php?uc=gererTarifs">Précèdent</a>
-		&nbsp;
-		<form method="post" action="index.php?uc=gererTarifs&action=modifier&option=valider" class="form-horizontal">
+		<?php 
+
+		include'../erreur/gestion_erreurs.php';
+		include'../validation/gestion_validation.php';
+		include'../include/unset.php';
+
+		?>
+		<h1 class="text-center"><i class="fa fa-eur"></i> Nouveau tarif <i class="fa fa-eur"></i></h1> 
+		<a href="index.php?uc=gererTarifs"><i class="fa fa-reply"></i> Précèdent</a>
+
+		<br/><br/>
+
+		<form method="post" action="index.php?uc=gererTarifs&action=ajouter&option=valider" class="form-horizontal">
 			<div class="col-md-10">
 				<div class="form-group">
 					<label for="from" class="col-sm-2 control-label" name="from">Période</label>
 					<div class="col-sm-5">
-						<input type="date" class="form-control" id="debut_periode" placeholder="ex :dd/mm/aaaa" name="debut_periode" value="<?php echo date('d/m/Y', strtotime($leTarif->getDebutPeriode()))?>" required>
+						<input type="date" class="form-control" id="debut_periode" placeholder="ex :dd/mm/aaaa" name="debut_periode" required>
 					</div>
 					<div class="col-sm-5">
-						<input type="date" class="form-control" id="fin_periode" placeholder="ex :dd/mm/aaaa" name="fin_periode" value="<?php echo date('d/m/Y', strtotime($leTarif->getFinPeriode()))?>" required>
+						<input type="date" class="form-control" id="fin_periode" placeholder="ex :dd/mm/aaaa" name="fin_periode" required>
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="to" class="col-sm-2 control-label" name="to">Prix/journée par chien (€)</label>
 					<div class="col-sm-5">
-						<input type="int" class="form-control" name="prix_jour_chien" placeholder="ex: 5" value="<?php echo $leTarif->getTarifJourChien() ?>" required>
+						<input type="int" class="form-control" name="prix_jour_chien" placeholder="ex: 5" required>
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="to" class="col-sm-2 control-label" name="to">Prix/journée par chat (€)</label>
 					<div class="col-sm-5">
-						<input type="int" class="form-control" name="prix_jour_chat" placeholder="ex: 5" value="<?php echo $leTarif->getTarifJourChat() ?>" required>
+						<input type="int" class="form-control" name="prix_jour_chat" placeholder="ex: 5" required>
 					</div>
 				</div>
 			</div>
@@ -43,8 +60,7 @@
 			</div>
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
-					<input type="hidden" value="<?php echo $leTarif->getID() ?>" name="ID_tarifs">
-					<button type="submit" class="btn btn-success">Modifier</button>
+					<button type="submit" class="btn btn-success">Ajouter</button>
 				</div>
 			</div>
 		</form>
@@ -88,5 +104,5 @@
 			}
 		});
 	});
-	</script>
+</script>
 </body>

@@ -10,8 +10,8 @@
 		 <h1 class="text-center"><i class="fa fa-eur"></i> Les tarifs <i class="fa fa-eur"></i> </h1>
 		<fieldset>
 				
-			<a href="#"><i class="fa fa-plus"></i> Ajouter des tarifs</a><br/>
-			<a href="#">Les infos</a>
+			<a href="index.php?uc=gererTarifs&action=ajouter"><i class="fa fa-plus"></i> Ajouter des tarifs</a><br/>
+
 			<br/><br/>
 				
 			<?php
@@ -25,7 +25,7 @@
 						{
 							?>
 							<tr>
-								<th>Periode</th>
+								<th>Période</th>
 								<td><?php echo date('d/m/Y', strtotime($tarif->DebutPeriode)).' - '.date('d/m/Y', strtotime($tarif->FinPeriode))?></td>
 							</tr>
 							<tr>
