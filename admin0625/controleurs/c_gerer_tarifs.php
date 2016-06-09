@@ -49,6 +49,11 @@ switch ($action)
 				
 				// on récuère fin_periode pour le formater pour l'insérer dans la base de données
 				$fin_periode = explode('/', htmlentities($_POST['fin_periode']));
+				$d = $fin_periode[0];
+				$m = $fin_periode[1];
+				$y = $fin_periode[2];
+
+				$fin_period = $y.'-'.$m.'-'.$d;
 
 				if(checkdate($debut_periode[1],$debut_periode[0],$debut_periode[2]))
 				{
@@ -68,23 +73,28 @@ switch ($action)
 						{
 							$verifTarifs = Tarifs::verifierTarifs(
 								date('Y-m-d', strtotime(htmlentities($_POST['debut_periode']))),
-								date('Y-m-d', strtotime(htmlentities($_POST['fin_periode']))),
+								$fin_period,
 								$tarif->DebutPeriode,
 								$tarif->FinPeriode);
 
-							if($verifTarifs['0'] == -1 OR $verifTarifs['0'] == -2 OR $verifTarifs['0'] == -3)
+							while($verifTarif = $verifTarifs->fetch())
 							{
-								$nb += 1;
+								if($verifTarif['0'] == -1 OR $verifTarif['0'] == -2 OR $verifTarif['0'] == -3)
+								{
+									$nb += 1;
+								}
+								else
+								{
+									$nb += 0;
+								}
 							}
-							else
-							{
-								$nb += 0;
-							}
+							
 						}
 
 						if($nb != 0)
 						{
 							$_SESSION['E_TARIFS_EXISTANTS'] = true;
+
 
 							// on charge les tarifs pour les afficher
 							$lesTarifs = Tarifs::chargerTarifs(1);
@@ -94,77 +104,73 @@ switch ($action)
 						else
 						{
 							unset($_SESSION['E_TARIFS_EXISTANTS']);
-						}
-
-						if($_POST['prix_jour_chien'] >= 0 )
-						{
-							unset($_SESSION['E_PRIX_JOUR_CHIEN']);
-
-							if($_POST['prix_jour_chat'] >= 0)
+							
+							if($_POST['prix_jour_chien'] >= 0 )
 							{
-								unset($_SESSION['E_PRIX_JOUR_CHAT']);
+								unset($_SESSION['E_PRIX_JOUR_CHIEN']);
 
-								// on récupère les données du formulaire reçu par la méthode POST
-								$prix_jour_chien = intval($_POST['prix_jour_chien']);
-								$prix_jour_chat = intval($_POST['prix_jour_chat']);
-								$debut_period = date('Y-m-d', strtotime(htmlentities($_POST['debut_periode'])));
-								
-								$fin_period = explode('/', htmlentities($_POST['fin_periode']));								
-								$d = $fin_period[0];
-								$m = $fin_period[1];
-								$y = $fin_period[2];
-
-								$values = array();
-								$values[] = $prix_jour_chien;
-								$values[] = $prix_jour_chat;
-								$values[] = $debut_period;
-								$values[] = $y.'-'.$m.'-'.$d;
-
-
-								$tarifAjouter = Tarifs::ajouterTarif($values);
-
-
-								if($tarifAjouter != null)
+								if($_POST['prix_jour_chat'] >= 0)
 								{
-									unset($_SESSION['E_TARIFS']);
-									$_SESSION['V_TARIFS'] = true;
+									unset($_SESSION['E_PRIX_JOUR_CHAT']);
 
-									// on charge les tarifs pour les afficher
-									$lesTarifs = Tarifs::chargerTarifs(1);
+									// on récupère les données du formulaire reçu par la méthode POST
+									$prix_jour_chien = intval($_POST['prix_jour_chien']);
+									$prix_jour_chat = intval($_POST['prix_jour_chat']);
+									$debut_period = date('Y-m-d', strtotime(htmlentities($_POST['debut_periode'])));
+									
+									$values = array();
+									$values[] = $prix_jour_chien;
+									$values[] = $prix_jour_chat;
+									$values[] = $debut_period;
+									$values[] = $y.'-'.$m.'-'.$d;
 
-									include'vues/v_tarifs.php';
+
+									$tarifAjouter = Tarifs::ajouterTarif($values);
+
+
+									if($tarifAjouter != null)
+									{
+										unset($_SESSION['E_TARIFS']);
+										$_SESSION['V_TARIFS'] = true;
+
+										// on charge les tarifs pour les afficher
+										$lesTarifs = Tarifs::chargerTarifs(1);
+
+										include'vues/v_tarifs.php';
+									}
+									else
+									{
+										$_SESSION['E_TARIFS'] = true;
+										unset($_SESSION['V_TARIFS']);
+
+										// on charge les tarifs pour les afficher
+										$lesTarifs = Tarifs::chargerTarifs(1);
+
+										include'vues/v_tarifs.php';
+									}
 								}
 								else
 								{
-									$_SESSION['E_TARIFS'] = true;
-									unset($_SESSION['V_TARIFS']);
+									$_SESSION['E_PRIX_JOUR_CHAT'] = true;
 
 									// on charge les tarifs pour les afficher
 									$lesTarifs = Tarifs::chargerTarifs(1);
 
 									include'vues/v_tarifs.php';
 								}
+
 							}
 							else
 							{
-								$_SESSION['E_PRIX_JOUR_CHAT'] = true;
+								$_SESSION['E_PRIX_JOUR_CHIEN'] = true;
 
 								// on charge les tarifs pour les afficher
 								$lesTarifs = Tarifs::chargerTarifs(1);
 
 								include'vues/v_tarifs.php';
 							}
-
 						}
-						else
-						{
-							$_SESSION['E_PRIX_JOUR_CHIEN'] = true;
 
-							// on charge les tarifs pour les afficher
-							$lesTarifs = Tarifs::chargerTarifs(1);
-
-							include'vues/v_tarifs.php';
-						}
 
 					}
 					else

@@ -57,6 +57,7 @@ switch ($action)
 
 			$_SESSION['E_CONNEXION'] = true;
 			unset($_SESSION['V_CONNEXION']);
+			
 			include'vues/_v_connexion.php';
 		}
 	};break;		

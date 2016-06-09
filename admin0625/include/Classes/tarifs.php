@@ -210,20 +210,20 @@ class Tarifs
         $cnx = new PdoDao();
 
         // requête
-        $strSQL = "SELECT f_dateVerifTarifs(?,?,?,?)";
+        $strSQL = $cnx->prepare("SELECT f_dateVerifTarifs(?,?,?,?)");
 
         // test de l'execution de la requête
         try 
         {
             // execution de la requête
-            $res = $cnx->execSQL($strSQL,array($debut_periode, $fin_periode, $debut, $fin));
+            $strSQL->execute(array($debut_periode, $fin_periode, $debut, $fin));
 
         }
         catch (PDOException $e) 
         {
             die($e->getMessage());
         }
-        return $res;
+        return $strSQL;
     } 
 }
 ?>
