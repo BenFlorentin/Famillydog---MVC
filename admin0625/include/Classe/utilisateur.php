@@ -299,7 +299,7 @@ class Utilisateur
                     nb_jours_rou AS Nb_jours_rou,
                     prix AS Prix,
                     etat AS Etat
-                    FROM contrat
+                    FROM reservation
                     WHERE ID_proprietaire = ? 
                     ORDER BY date_debut";
         // test d'execution
@@ -307,6 +307,32 @@ class Utilisateur
         {
             // execution de la requête
             $res = $cnx->getRows($strSQL, array($this->getID()),$mode);
+        }
+        catch (PDOException $e) 
+        {
+            die($e->getMessage());
+        }
+        return $res;
+    }
+
+
+    /**
+     * retourne le nombre des réservations de l'utilisateur
+     * @return un entier
+    */
+    public function nbReservations() 
+    {
+        // ouvre une connexion pour accéder à la base de données
+        $cnx = new PdoDao();
+
+        // requête
+        $strSQL = "SELECT COUNT(*) FROM reservation WHERE ID_proprietaire = ?";
+        
+        // test d'execution
+        try 
+        {
+            // execution de la requête
+            $res = $cnx->getValue($strSQL, array($this->getID()));
         }
         catch (PDOException $e) 
         {

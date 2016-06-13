@@ -77,7 +77,7 @@
 							</button>
 							<ul class="dropdown-menu">
 								<li><a href="index.php?uc=gererTarifs&action=listeTarifs"><i class="fa fa-eur"></i> Gestion des tarifs</a></li>
-								<li><a href="admin_comptes.php"><i class="fa fa-user"></i> Gestion des comptes et animaux <i class="fa fa-paw"></i></a></li>
+								<li><a href="index.php?uc=gererComptes&action=listeUtilisateurs"><i class="fa fa-user"></i> Gestion des comptes et animaux <i class="fa fa-paw"></i></a></li>
 								<li class="dropdown">
 									<!-- gestion des réservations -->
 									<a tabindex="-1" href="#"><i class="fa fa-calendar"></i> Gestion des réservations</a>
@@ -204,7 +204,7 @@
 									</ul>
 								</li>
 								<li role="separator" class="divider"></li>
-								<li><a href="admin_infos.php"><i class="fa fa-info"></i> Gestion des informations</a></li>
+								<li><a href="index.php?uc=infos"><i class="fa fa-info"></i> Gestion des informations</a></li>
 							</ul>
 						</div>
 					</li>

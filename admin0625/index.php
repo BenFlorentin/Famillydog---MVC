@@ -51,10 +51,16 @@ switch ($uc)
         include 'controleurs/c_gerer_messages.php'; break;
 
     case 'gererTarifs' : 
-        include 'controleurs/c_gerer_tarifs.php'; break;
+        include 'controleurs/c_gerer_tarifs.php'; break; 
+
+    case 'gererComptes' : 
+        include 'controleurs/c_gerer_comptes.php'; break;
 
     case 'home' : 
-        include 'vues/v_home.php'; break;
+        include 'vues/v_home.php'; break; 
+    
+    case 'infos' : 
+        include 'vues/v_infos.php'; break;
 
     default : include 'controleurs/c_gerer_connexion.php'; break;
 }

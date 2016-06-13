@@ -22,6 +22,7 @@ class Utilisateurs
         nom as Nom,
         prenom as Prenom
         FROM proprietaire
+        WHERE droit != 1
         ORDER BY nom";
         // test d'execution 
         try 
@@ -346,10 +347,10 @@ class Utilisateurs
     
     /**
      * Méthode qui modifie un utilisateur dans la base      
-     * @param   $utilisateur : un objet de la classe Utilisateur
+     * @param   $params : tableau des nouvelles données de l'utilisateur
      * @return  un entier qui vaut 1 si la maj a été effectuée
     */
-    static public function modifierUtilisateur($utilisateur) 
+    static public function modifierUtilisateur($params) 
     {
         // créer une nouvelle connexion pour accéder à la base de données
         $cnx = new PdoDao();
@@ -379,28 +380,8 @@ class Utilisateurs
         // test d'execution
         try 
         {
-            // recupére les valeurs
-            $values = array($utilisateur->getGenre(),
-                $utilisateur->getNom(),
-                $utilisateur->getPrenom(),
-                $utilisateur->getCollectivites(),
-                $utilisateur->getTel(),
-                $utilisateur->getFix(),
-                $utilisateur->getFax(),
-                $utilisateur->getEmail(),
-                $utilisateur->getMdp(),
-                $utilisateur->getRueVoie(),
-                $utilisateur->getNumRueVoie(),
-                $utilisateur->getVille(),
-                $utilisateur->getPays(),
-                $utilisateur->getCodePostal(),
-                $utilisateur->getComplemAdr(),
-                $utilisateur->getComplemInfo(),
-                $utilisateur->getDateNaissance(),
-                $utilisateur->getDroit(),
-                $utilisateur->getID());
             // execution de la requête
-            $res = $cnx->execSQL($strSQL, $values);
+            $res = $cnx->execSQL($strSQL, $params);
         }
         catch (Exception $ex) 
         {
@@ -440,7 +421,7 @@ class Utilisateurs
             try 
             {
                 // execution de la requête
-                $cnx->execSQL($strSQL,$values);
+                $res = $cnx->execSQL($strSQL,$values);
 
                 // suppression de l'objet en mémoire
                 $utilisateur = NULL;
@@ -449,14 +430,14 @@ class Utilisateurs
             {
                 die($e->getMessage());
             }
-            return $utilisateur;
+            return $res;
             
         }
         else
         {
-            return $utilisateur;
+            return $res;
         }
 
-    } 
+    }
 }
 ?>

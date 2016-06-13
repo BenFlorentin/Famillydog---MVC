@@ -9,10 +9,13 @@
 
 		 <h1 class="text-center"><i class="fa fa-eur"></i> Les tarifs <i class="fa fa-eur"></i> </h1>
 		<fieldset>
-				
-			<a href="index.php?uc=gererTarifs&action=ajouter"><i class="fa fa-plus"></i> Ajouter des tarifs</a><br/>
+			
+			<ul class="list-inline">
+				<li><a href="index.php?uc=gererTarifs&action=ajouter"><i class="fa fa-plus"></i> Ajouter des tarifs</a><br/></li>
+				<li><a href="index.php?uc=infos">Les infos</a></li>
+			</ul>
 
-			<br/><br/>
+			<br/>
 				
 			<?php
 			if($lesTarifs)

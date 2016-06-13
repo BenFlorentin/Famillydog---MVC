@@ -28,7 +28,7 @@ if(isset($_SESSION['V_USER']) && $_SESSION['V_USER'] == true)
 		<div style="border-radius: 20px;"class="alert alert-success alert-dismissable fade in">
 			<i class="fa fa-check-circle" aria-hidden="true"></i>
 
-			<strong>Bienvenue</strong> <?php echo ucfirst($_SESSION['user_prenom']).' '.strtoupper($_SESSION['user_nom']); ?>
+			<strong>Succès</strong> L'ajout a été effectuée !
 			<!-- Générer par le plugin quand la classe alert-dismissable est ajoutée -->
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 		</div>

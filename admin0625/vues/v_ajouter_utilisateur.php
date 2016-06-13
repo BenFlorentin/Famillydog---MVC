@@ -1,9 +1,3 @@
-<?php 
-include'include/session.php';
-include'include/connexion_bdd.php';
-include'include/header.php';
-?>
-
 <!-- DATEPICKER : sur chaque fichier où il y a un datepicker -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
@@ -11,10 +5,17 @@ include'include/header.php';
 
 
 <body>
+	<?php 
+
+    	include'../erreur/gestion_erreurs.php';
+      	include'../validation/gestion_validation.php';
+      	include'../include/unset.php';
+    
+    ?>
 	<div class="container">
 		<fieldset>
 			 <h1 class="text-center">Nouvel utilisateur</h1>
-			<form method="post" action="admin_compte_add_post.php" class="form-horizontal">
+			<form method="post" action="index.php?uc=gererComptes&action=ajouter&option=valider" class="form-horizontal">
 				<div class="col-md-6">
 					<div class="form-group">
 						<label for="genre" class="col-sm-2 control-label" >Genre*</label>
@@ -165,7 +166,3 @@ include'include/header.php';
 });
 		</script>
 	</body>
-	<!-- footer -->
-	<?php 
-	include'include/footer.php'; ?>
-	</html>

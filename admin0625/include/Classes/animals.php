@@ -230,6 +230,35 @@ class Animals
             die($e->getMessage());
         }
         return $animal;
+    }
+
+    /**
+     * supprime les animaux de l'utilisateur
+     * @return  un entier qui contient 1 si la mise à jour a été effectuées
+    */
+    static public function supprimerAnimaux($utilisateur) 
+    {
+        // créer une nouvelle connexion pour accéder à la base de données
+        $cnx = new PdoDao();
+
+        // requête
+        $strSQL = "DELETE FROM animal WHERE ID_proprietaire = ?";
+
+        // test de la suppression
+        try 
+        {
+            // execution de la requête
+            $cnx->execSQL($strSQL,array($utilisateur->getID()));
+
+            // suppression de l'objet en mémoire
+            $utilisateur = null;
+        }
+        catch (PDOException $e) 
+        {
+            die($e->getMessage());
+        }
+        
+        return $utilisateur;
     } 
 }
 ?>
